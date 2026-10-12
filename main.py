@@ -6,17 +6,13 @@ import pytz
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
-# 1. RAM OPTIMIZATION: Only enable minimal gateway intents
 intents = discord.Intents.none()
 intents.guilds = True 
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-# Indonesia Timezone (WIB)
 WIB = pytz.timezone("Asia/Jakarta")
 
 async def kirim_pengingat_ke_semua(teks_pesan):
-    """Dynamically find a valid text channel in each server and send the message"""
     await bot.wait_until_ready()
     for guild in bot.guilds:
         channel_tujuan = None
@@ -33,17 +29,13 @@ async def kirim_pengingat_ke_semua(teks_pesan):
             except Exception as e:
                 print(f"[ERROR] Failed sending to {guild.name}: {e}")
 
-# 2. ACTIVITY LOOP: Updates the bot status every 1 hour
 @tasks.loop(hours=1)
 async def perbarui_status_jam():
     await bot.wait_until_ready()
-    
-    # Get current local time
     waktu_sekarang = datetime.now(WIB)
     jam_menit = waktu_sekarang.strftime("%H:00 WIB")
     jam_angka = waktu_sekarang.hour
 
-    # Determine status details based on current hour
     if 5 <= jam_angka < 11:
         keterangan = "Morning Vibes 🌅"
     elif 11 <= jam_angka < 15:
@@ -53,25 +45,20 @@ async def perbarui_status_jam():
     else:
         keterangan = "Night Vibes 🌌"
 
-    # Set Custom Rich Presence: Top line (Watching) and Bottom line (State)
     aktivitas = discord.Activity(
         type=discord.ActivityType.watching,
-        name=f"Time {jam_menit}",   # Top line (Watching Time XX:00 WIB)
-        state=keterangan           # Bottom line
+        name=f"Time {jam_menit}",
+        state=keterangan
     )
-    
     await bot.change_presence(status=discord.Status.online, activity=aktivitas)
     print(f"[STATUS] Updated to: Watching Time {jam_menit} | {keterangan}")
 
 @bot.event
 async def on_ready():
     print(f"[ONLINE] Bot is logged in as {bot.user.name}")
-    
-    # Start status loop
     if not perbarui_status_jam.is_running():
         perbarui_status_jam.start()
     
-    # 3. ROBUST SCHEDULER: Automatic Time Announcements (24-Hour Format)
     scheduler = AsyncIOScheduler(timezone="Asia/Jakarta")
     scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("🌅 Good Morning! Have a great start to your day.")), CronTrigger(hour=6, minute=0))
     scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("☀️ Good Afternoon! Don't forget to take a break and have lunch.")), CronTrigger(hour=12, minute=0))
@@ -81,7 +68,6 @@ async def on_ready():
     scheduler.start()
     print("[LOG] Multi-server time scheduler is active.")
 
-# Run the bot securely using the Environment Variable from Render
 TOKEN = os.environ.get("DISCORD_TOKEN")
 if TOKEN:
     bot.run(TOKEN)
