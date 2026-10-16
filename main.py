@@ -3,31 +3,12 @@ import discord
 from discord.ext import commands, tasks
 from datetime import datetime
 import pytz
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.triggers.cron import CronTrigger
 
 intents = discord.Intents.none()
 intents.guilds = True 
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 WIB = pytz.timezone("Asia/Jakarta")
-
-async def kirim_pengingat_ke_semua(teks_pesan):
-    await bot.wait_until_ready()
-    for guild in bot.guilds:
-        channel_tujuan = None
-        for channel in guild.text_channels:
-            permissions = channel.permissions_for(guild.me)
-            if permissions.send_messages and not channel.is_nsfw():
-                channel_tujuan = channel
-                break
-        
-        if channel_tujuan:
-            try:
-                await channel_tujuan.send(teks_pesan)
-                print(f"[LOG] Successfully sent to: {guild.name} -> #{channel_tujuan.name}")
-            except Exception as e:
-                print(f"[ERROR] Failed sending to {guild.name}: {e}")
 
 @tasks.loop(hours=1)
 async def perbarui_status_jam():
@@ -58,15 +39,7 @@ async def on_ready():
     print(f"[ONLINE] Bot is logged in as {bot.user.name}")
     if not perbarui_status_jam.is_running():
         perbarui_status_jam.start()
-    
-    scheduler = AsyncIOScheduler(timezone="Asia/Jakarta")
-    scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("🌅 Good Morning! Have a great start to your day.")), CronTrigger(hour=6, minute=0))
-    scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("☀️ Good Afternoon! Don't forget to take a break and have lunch.")), CronTrigger(hour=12, minute=0))
-    scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("🌇 Good Evening! Time to relax after a busy day.")), CronTrigger(hour=17, minute=0))
-    scheduler.add_job(lambda: bot.loop.create_task(kirim_pengingat_ke_semua("🌌 Good Night! Rest well and sweet dreams.")), CronTrigger(hour=21, minute=0))
-    
-    scheduler.start()
-    print("[LOG] Multi-server time scheduler is active.")
+    print("[LOG] Bot activity is active (no channel messages).")
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
 if TOKEN:
