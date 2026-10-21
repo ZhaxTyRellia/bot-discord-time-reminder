@@ -57,3 +57,12 @@ Pustaka Python yang diperlukan (tercantum dalam `requirements.txt`):
 ```text
 discord.py
 pytz
+
+📁 Struktur File
+
+.
+├── main.py             # Script utama bot Discord
+├── requirements.txt    # Daftar dependensi Python
+└── README.md           # Dokumentasi proyek
+
+
