@@ -171,9 +171,4 @@ python main.py
 ## 📄 Lisensi
 
 Proyek ini dilindungi di bawah lisensi [MIT License](https://www.google.com/search?q=LICENSE). Bebas untuk digunakan, dimodifikasi, dan didistribusikan kembali.
-
-```
-
-<FollowUp label="Coba tempel kode di atas ke GitHub, apakah sekarang sudah tampil rapi tanpa error?" query="Coba tempel kode di atas ke GitHub, apakah sekarang sudah tampil rapi tanpa error?"/>
-
 ```
