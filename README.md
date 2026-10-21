@@ -1,71 +1,59 @@
-🕒 Multi-Token Discord Time Status Bot
-Bot Discord asinkron berbasis Python yang dirancang untuk menjalankan multiple bot instance secara bersamaan dalam satu proses (asyncio). Bot ini otomatis memperbarui status aktivitas (watching status) setiap jam berdasarkan zona waktu WIB (Asia/Jakarta) lengkap dengan penyesuaian suasana waktu (pagi, siang, sore, malam).
+<div align="center">
 
-Repository ini bersifat publik dan dapat digunakan serta di-deploy dengan mudah secara 24/7 gratis di platform Railway.
+# 🕒 Multi-Token Discord Time Status Bot
 
-✨ Fitur Utama
-Multi-Bot Support: Jalankan banyak bot sekaligus hanya dengan memasukkan banyak token yang dipisahkan oleh koma (token1,token2,token3).
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![discord.py](https://img.shields.io/badge/discord.py-v2.0%2B-5865F2.svg?logo=discord&logoColor=white)](https://github.com/Rapptz/discord.py)
+[![Railway Deploy](https://img.shields.io/badge/Deploy%20on-Railway-0B0D0E.svg?logo=railway&logoColor=white)](https://railway.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Dynamic Time Status: Mengubah status aktivitas bot secara otomatis setiap 1 jam sekali dengan format waktu WIB dan deskripsi vibes yang dinamis:
+*Bot Discord asinkron modern untuk mengelola status aktivitas waktu dinamis (WIB) pada multiple bot instance dalam satu proses.*
 
-🌅 Morning Vibes (05:00 - 10:59)
+[Fitur Utama](#-fitur-utama) • [Persyaratan](#-persyaratan) • [Panduan Deploy Railway](#-panduan-deploy-247-di-railway) • [Lisensi](#-lisensi)
 
-☀️ Afternoon Vibes (11:00 - 14:59)
+</div>
 
-🌇 Evening Vibes (15:00 - 17:59)
+---
 
-🌌 Night Vibes (18:00 - 04:59)
+## 📑 Daftar Isi
+- [Garis Besar](#-garis-besar)
+- [Fitur Utama](#-fitur-utama)
+- [Persyaratan](#-persyaratan)
+- [Struktur File](#-struktur-file)
+- [Panduan Deploy 24/7 di Railway](#-panduan-deploy-247-di-railway)
+  - [1. Hubungkan Repository](#langkah-1-hubungkan-repository-ke-railway)
+  - [2. Konfigurasi Environment Variable](#langkah-2-menambahkan-token-di-environment-variables-railway)
+  - [3. Verifikasi Log](#langkah-3-deployment--verifikasi)
+- [Lisensi](#-lisensi)
 
-Asynchronous Engine: Dibangun di atas asyncio dan discord.py versi modern dengan commands.Bot dan setup_hook.
+---
 
-Lightweight Intents: Menggunakan konfigurasi intents.none() dengan hanya mengaktifkan guilds = True agar sangat hemat sumber daya.
+## 📌 Garis Besar
 
-🛠️ Requirements
-File requirements.txt yang dibutuhkan oleh project ini:
+**Multi-Token Discord Time Status Bot** adalah solusi ringan berbasis Python untuk menjalankan status jam otomatis di Discord secara *real-time*. Menggunakan `asyncio` dan `discord.py` modern, bot ini mendukung eksekusi **multi-token bersamaan** tanpa memakan banyak konsumsi memori/CPU, menjadikannya sangat ideal dipasang pada cloud platform gratisan seperti **Railway**.
 
-Plaintext
+---
+
+## ✨ Fitur Utama
+
+- 🤖 **Multi-Bot Instance:** Jalankan beberapa bot Discord sekaligus hanya dengan memisahkan token menggunakan koma (`token1,token2`).
+- ⏰ **Dynamic WIB Time Status:** Otomatis memperbarui aktivitas status (*watching status*) setiap jam sesuai Waktu Indonesia Barat (Asia/Jakarta).
+- 🎨 **Adaptive Vibes:** Menyesuaikan teks deskripsi berdasarkan jam secara otomatis:
+  | Rentang Waktu | Status / Vibes |
+  | :--- | :--- |
+  | `05:00 - 10:59` | 🌅 **Morning Vibes** |
+  | `11:00 - 14:59` | ☀️ **Afternoon Vibes** |
+  | `15:00 - 17:59` | 🌇 **Evening Vibes** |
+  | `18:00 - 04:59` | 🌌 **Night Vibes** |
+- ⚡ **Asynchronous Engine:** Memanfaatkan `discord.ext.tasks` dan `asyncio.gather` untuk performa cepat dan non-blocking.
+- 🛡️ **Ultra-Lightweight:** Menggunakan `intents.none()` (hanya `guilds = True`) agar efisien terhadap kuota sumber daya server.
+
+---
+
+## 🛠️ Persyaratan
+
+Pustaka Python yang diperlukan (tercantum dalam `requirements.txt`):
+
+```text
 discord.py
 pytz
-☁️ Panduan Deploy 24/7 Gratis di Railway
-Bagi Anda atau pengguna lain yang ingin mendeploy bot ini ke Railway, ikuti langkah-langkah berikut:
-
-Langkah 1: Hubungkan Repository ke Railway
-Login ke Railway menggunakan akun GitHub Anda.
-
-Klik tombol New Project -> pilih Deploy from GitHub repo.
-
-Pilih repository publik bot ini.
-
-Langkah 2: Menambahkan Token di Environment Variables Railway
-Di halaman dashboard Railway, klik pada service project bot Anda.
-
-Cari dan klik tab Variables di bagian atas menu.
-
-Klik tombol + New Variable (atau isi kolom yang tersedia).
-
-Masukkan konfigurasi variabel sebagai berikut:
-
-Variable Name (Key): DISCORD_TOKEN
-
-Value: Masukkan token bot Discord Anda. Jika menggunakan banyak bot sekaligus, pisahkan token-token tersebut menggunakan tanda koma , tanpa spasi berlebih.
-
-Contoh Value:
-
-Code snippet
-OTAxND...xMA.G5-abc,OTAyND...xTQ.H6-def
-Klik tombol Add atau Save untuk menyimpan variabel.
-
-Langkah 3: Deployment & Verifikasi
-Railway akan secara otomatis membaca file requirements.txt dan melakukan proses build serta deploy sesaat setelah variabel disimpan.
-
-Pindah ke tab Deployments atau Logs untuk memantau proses jalannya bot.
-
-Jika berhasil, Anda akan melihat output log seperti berikut:
-
-Plaintext
-[ONLINE] Bot #1 is logged in as NamaBot1
-[STATUS - Bot #1] Updated to: Watching Time 14:00 WIB | Afternoon Vibes ☀️
-📝 Catatan Penting
-Jangan pernah membagikan atau mem-push token Discord Anda langsung ke dalam kode repository GitHub publik. Gunakan selalu Environment Variables (os.getenv("DISCORD_TOKEN")).
-
-Jika Anda mengganti atau menambahkan token baru di Railway, bot akan otomatis melakukan restart dan memuat token yang baru ditambahkan.
