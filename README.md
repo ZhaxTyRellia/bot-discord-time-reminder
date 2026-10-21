@@ -1,4 +1,4 @@
-<div align="center">
+Markdown<div align="center">
 
 # 🕒 Multi-Token Discord Time Status Bot
 
@@ -9,7 +9,7 @@
 
 *Bot Discord asinkron modern untuk mengelola status aktivitas waktu dinamis (WIB) pada multiple bot instance dalam satu proses.*
 
-[Fitur Utama](#-fitur-utama) • [Persyaratan](#-persyaratan) • [Panduan Deploy Railway](#-panduan-deploy-247-di-railway) • [Lisensi](#-lisensi)
+[Garis Besar](#-garis-besar) • [Fitur Utama](#-fitur-utama) • [Persyaratan](#-persyaratan) • [Panduan Deploy Railway](#-panduan-deploy-247-di-railway) • [Lisensi](#-lisensi)
 
 </div>
 
@@ -24,13 +24,14 @@
   - [1. Hubungkan Repository](#langkah-1-hubungkan-repository-ke-railway)
   - [2. Konfigurasi Environment Variable](#langkah-2-menambahkan-token-di-environment-variables-railway)
   - [3. Verifikasi Log](#langkah-3-deployment--verifikasi)
+- [Keamanan](#-keamanan)
 - [Lisensi](#-lisensi)
 
 ---
 
 ## 📌 Garis Besar
 
-**Multi-Token Discord Time Status Bot** adalah solusi ringan berbasis Python untuk menjalankan status jam otomatis di Discord secara *real-time*. Menggunakan `asyncio` dan `discord.py` modern, bot ini mendukung eksekusi **multi-token bersamaan** tanpa memakan banyak konsumsi memori/CPU, menjadikannya sangat ideal dipasang pada cloud platform gratisan seperti **Railway**.
+**Multi-Token Discord Time Status Bot** adalah solusi ringan berbasis Python untuk menjalankan status jam otomatis di Discord secara *real-time*. Menggunakan `asyncio` dan `discord.py` modern, bot ini mendukung eksekusi **multi-token bersamaan** tanpa memakan banyak konsumsi memori/CPU, menjadikannya sangat ideal dipasang pada cloud platform seperti **Railway**.
 
 ---
 
@@ -57,12 +58,12 @@ Pustaka Python yang diperlukan (tercantum dalam `requirements.txt`):
 ```text
 discord.py
 pytz
-
-📁 Struktur File
-
-.
+📁 Struktur FilePlaintext.
 ├── main.py             # Script utama bot Discord
 ├── requirements.txt    # Daftar dependensi Python
 └── README.md           # Dokumentasi proyek
-
-
+☁️ Panduan Deploy 24/7 di Railway[!NOTE]Railway menyediakan opsi yang sangat stabil untuk menjalankan bot Discord Python 24 jam nonstop tanpa perlu mengurus server VPS sendiri.Langkah 1: Hubungkan Repository ke RailwayAkses Railway Dashboard dan login dengan akun GitHub Anda.Klik tombol New Project $\rightarrow$ pilih Deploy from GitHub repo.Pilih repository bot ini dari daftar repositori Anda.Langkah 2: Menambahkan Token di Environment Variables RailwayDi dalam dashboard service Railway Anda, buka tab Variables.Klik + New Variable dan tambahkan variabel berikut:Key: DISCORD_TOKENValue: Masukkan token bot Discord Anda. Jika menggunakan banyak bot, pisahkan dengan koma , tanpa spasi.[!TIP]Format Value Token:Code snippetNjg5...token1,OTAy...token2,MTAx...token3
+Langkah 3: Deployment & VerifikasiRailway akan mendeteksi requirements.txt secara otomatis dan memulai proses build.Buka tab Logs untuk memverifikasi bahwa bot telah berhasil terhubung.Contoh output log sukses:Bash[ONLINE] Bot #1 is logged in as TimeBot#1234
+[STATUS - Bot #1] Updated to: Watching Time 14:00 WIB | Afternoon Vibes ☀️
+🔒 Keamanan[!WARNING]Jangan pernah memasukkan/menuliskan token Discord secara mentah (hardcode) di dalam berkas kode .py atau mem-push token Anda ke repositori GitHub publik. Gunakan selalu Environment Variable DISCORD_TOKEN.📄 LisensiProyek ini dilindungi di bawah lisensi MIT License. Bebas untuk digunakan, dimodifikasi, dan didistribusikan kembali.
+<FollowUp label="Mau saya bantu buatkan template file .gitignore juga agar file sensiti
