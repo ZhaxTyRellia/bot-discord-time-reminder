@@ -171,4 +171,3 @@ python main.py
 ## 📄 Lisensi
 
 Proyek ini dilindungi di bawah lisensi [MIT License](https://www.google.com/search?q=LICENSE). Bebas untuk digunakan, dimodifikasi, dan didistribusikan kembali.
-```
